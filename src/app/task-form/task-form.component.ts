@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; 
 import { TaskService } from '../services/task.service';
+
 @Component({
   selector: 'app-task-form',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule], 
   template: `
   <div class="bg-white p-4 rounded shadow mb-4">
     <form (submit)="submit($event)" class="grid grid-cols-1 gap-2">
