@@ -1,21 +1,29 @@
-# 🚀 Gerenciador de Tarefas Angular
+# ⚙️ Documentação do Angular CLI (Tradução)
 
-Este projeto foi gerado com a versão **16.2.16 do Angular CLI** e implementa uma arquitetura moderna utilizando **Standalone Components** e **Angular Signals** para gerenciamento de estado.
-
-## 📋 Funcionalidades Principais
-
-* **Organização em Colunas:** Tarefas divididas em **Para fazer**, **Em andamento** e **Concluídas**.
-* **Controle de Status:** Atualização de status através de botões e checkbox.
-* **Prioridade Visual:** Cards com borda colorida indicando o nível de prioridade (Alta, Média, Baixa).
-* **Gerenciamento de Estado:** Utiliza um `TaskService` centralizado com `Signals` para reatividade imediata.
+Este projeto foi gerado com a versão **16.2.16 do Angular CLI**.
 
 ---
 
-## 💻 Guia de Desenvolvimento
+### Servidor de Desenvolvimento (*Development Server*)
 
-### Instalação
+Execute **`ng serve`** para um servidor de desenvolvimento. Navegue para `http://localhost:4200/`. A aplicação será recarregada automaticamente se você alterar qualquer um dos arquivos fonte.
 
-Após clonar o repositório, use o npm para instalar todas as dependências do projeto:
+### Geração de Código (*Code Scaffolding*)
 
-```bash
-npm install
+Execute **`ng generate component component-name`** para gerar um novo componente. Você também pode usar **`ng generate directive|pipe|service|class|guard|interface|enum|module`**.
+
+### Compilação (*Build*)
+
+Execute **`ng build`** para compilar o projeto. Os artefatos de compilação (*build artifacts*) serão armazenados no diretório **`dist/`**.
+
+### Execução de Testes Unitários
+
+Execute **`ng test`** para executar os testes unitários via **Karma**.
+
+### Execução de Testes End-to-End
+
+Execute **`ng e2e`** para executar os testes *end-to-end* (ponta a ponta) via uma plataforma de sua escolha. Para usar este comando, você precisa primeiro adicionar um pacote que implemente recursos de teste *end-to-end*.
+
+### Ajuda Adicional (*Further Help*)
+
+Para obter mais ajuda sobre o Angular CLI, use **`ng help`** ou confira a página **Angular CLI Overview and Command Reference**.
