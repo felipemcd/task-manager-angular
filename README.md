@@ -1,4 +1,4 @@
-# ⚙️ Documentação do Angular CLI (Tradução)
+# ⚙️ Documentação do Angular CLI
 
 Este projeto foi gerado com a versão **16.2.16 do Angular CLI**.
 
