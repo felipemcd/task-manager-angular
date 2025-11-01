@@ -1,46 +1,74 @@
 import { Injectable, signal } from '@angular/core';
 import { Task } from '../models/task';
 
+const INITIAL_TASKS: Task[] = [
+  {
+    id: '1',
+    title: 'Estudar Angular',
+    description: 'Revisar signals e standalone components',
+    priority: 'high',
+    status: 'todo',
+    due: new Date(Date.now() + 86400000).toISOString().split('T')[0]
+  },
+  {
+    id: '2',
+    title: 'Projeto PWEB',
+    description: 'Migrar app para Angular',
+    priority: 'medium',
+    status: 'doing',
+    due: new Date(Date.now() + 2 * 86400000).toISOString().split('T')[0]
+  },
+  {
+    id: '3',
+    title: 'Lavar louça',
+    description: 'Deixar a cozinha limpa',
+    priority: 'low',
+    status: 'done',
+    due: new Date(Date.now() - 86400000).toISOString().split('T')[0]
+  }
+];
+
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
-  // initial database (exported by the service)
-  private initial: Task[] = [
-    { id: 1, title: 'Estudar Angular', description: 'Revisar signals e standalone components', done: false, priority: 'high' },
-    { id: 2, title: 'Projeto PWEB', description: 'Migrar app para Angular', done: false, priority: 'medium' },
-    { id: 3, title: 'Lavar louça', done: true, priority: 'low' }
-  ];
+  tasks = signal<Task[]>(INITIAL_TASKS);
 
-  // signal that holds app state
-  tasks = signal<Task[]>(this.initial.slice());
+  constructor() { }
 
-  // simple id counter
-  private nextId = Math.max(...this.initial.map(t=>t.id)) + 1;
-
-  // read
-  list() { return this.tasks; }
-
-  // create
-  add(task: Partial<Task>) {
-    const newTask: Task = {
-      id: this.nextId++,
-      title: task.title || 'Nova tarefa',
-      description: task.description,
-      done: !!task.done,
-      priority: task.priority || 'low'
+  add(newTask: Omit<Task, 'id' | 'status'>) {
+    const taskWithDefaults: Task = {
+      ...newTask,
+      id: Date.now().toString(),
+      status: 'todo',
     };
-    this.tasks.update(prev => [newTask, ...prev]);
-    return newTask;
+    this.tasks.update(currentTasks => [taskWithDefaults, ...currentTasks]);
   }
 
-  // update by id
-  toggleDone(id: number) {
-    this.tasks.update(prev => prev.map(t => t.id === id ? ({...t, done: !t.done}) : t));
+  updateStatus(id: string, newStatus: 'todo' | 'doing' | 'done') {
+    this.tasks.update(currentTasks =>
+      currentTasks.map(task => {
+        if (task.id === id) {
+          return { ...task, status: newStatus };
+        }
+        return task;
+      })
+    );
   }
 
-  // delete
-  remove(id: number) {
-    this.tasks.update(prev => prev.filter(t => t.id !== id));
+  toggleStatus(id: string) {
+    this.tasks.update(currentTasks =>
+      currentTasks.map(task => {
+        if (task.id === id) {
+          const newStatus = task.status === 'done' ? 'todo' : 'done';
+          return { ...task, status: newStatus };
+        }
+        return task;
+      })
+    );
+  }
+
+  remove(id: string) {
+    this.tasks.update(currentTasks => currentTasks.filter(task => task.id !== id));
   }
 }

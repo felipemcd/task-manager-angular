@@ -1,43 +1,54 @@
-import { Component, computed, effect } from '@angular/core';
+import { Component, Input, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../services/task.service';
-import { AsyncPipe } from '@angular/common';
+import { Task } from '../models/task';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
   imports: [CommonModule],
   template: `
-  <div class="bg-white p-4 rounded shadow">
-    <h2 class="font-bold mb-2">Tarefas</h2>
+    <div *ngFor="let task of filteredTasks()" 
+         class="task-card" 
+         [ngClass]="'priority-' + task.priority">
+        
+      <label class="flex items-center gap-2 mb-2">
+        <input type="checkbox" [checked]="task.status === 'done'" (change)="toggleDone(task.id)">
+        <span class="font-semibold" [class.line-through]="task.status === 'done'">{{ task.title }}</span>
+      </label>
+      
+      <p class="text-sm text-slate-700">{{ task.description }}</p>
+      <p class="text-sm text-slate-500 mt-1">Nível: {{ task.priority }}</p>
 
-    <div *ngIf="(tasks().length === 0)" class="text-sm text-gray-600">Nenhuma tarefa.</div>
+      <div class="task-actions">
+        <button *ngIf="task.status === 'todo'" class="bg-blue-600" (click)="updateStatus(task.id, 'doing')">Em Andamento</button>
+        <button *ngIf="task.status === 'doing'" class="bg-yellow-600" (click)="updateStatus(task.id, 'todo')">Voltar</button>
 
-    <ul>
-      <li *ngFor="let t of tasks()" class="flex items-start gap-3 py-2 border-b last:border-b-0">
-        <input type="checkbox" [checked]="t.done" (change)="toggle(t.id)" />
-        <div class="flex-1">
-          <div class="flex justify-between">
-            <div>
-              <div [class.line-through]="t.done" class="font-medium">{{ t.title }}</div>
-              <div class="text-xs text-gray-500">{{ t.description }}</div>
-            </div>
-            <div class="text-xs text-gray-400">{{ t.priority }}</div>
-          </div>
-        </div>
-        <button (click)="remove(t.id)" class="text-red-500 ml-2">Remover</button>
-      </li>
-    </ul>
-  </div>
+        <button class="remove" (click)="remove(task.id)">Excluir</button>
+      </div>
+    </div>
+    
+    <p *ngIf="filteredTasks().length === 0" class="text-sm text-slate-500 mt-2">Nenhuma tarefa nesta coluna.</p>
   `,
-  styles: [`.line-through { text-decoration: line-through; }`]
 })
 export class TaskListComponent {
+  @Input({ required: true }) status!: 'todo' | 'doing' | 'done';
+
   constructor(private taskService: TaskService) {}
 
-  // use the signal directly - template calls tasks()
-  tasks = () => this.taskService.tasks();
+  filteredTasks = computed(() => {
+    return this.taskService.tasks().filter(task => task.status === this.status);
+  });
 
-  toggle(id: number) { this.taskService.toggleDone(id); }
-  remove(id: number) { this.taskService.remove(id); }
+  updateStatus(id: string, newStatus: 'todo' | 'doing' | 'done'): void {
+    this.taskService.updateStatus(id, newStatus);
+  }
+
+  toggleDone(id: string): void {
+    this.taskService.toggleStatus(id);
+  }
+
+  remove(id: string): void {
+    this.taskService.remove(id);
+  }
 }

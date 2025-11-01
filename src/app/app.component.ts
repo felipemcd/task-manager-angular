@@ -1,35 +1,61 @@
-import { Component, inject } from '@angular/core';
+
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+// Componentes da Aplicação
 import { HeaderComponent } from './header/header.component';
-import { TaskListComponent } from './task-list/task-list.component';
 import { TaskFormComponent } from './task-form/task-form.component';
+import { TaskListComponent } from './task-list/task-list.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HeaderComponent, TaskListComponent, TaskFormComponent],
+  imports: [
+    CommonModule,
+    HeaderComponent,
+    TaskFormComponent,
+    TaskListComponent
+  ],
   template: `
-  <div class="min-h-screen">
-    <app-header></app-header>
-    <main class="container mt-6">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <section class="md:col-span-2">
-          <app-task-form></app-task-form>
-          <app-task-list></app-task-list>
-        </section>
-        <aside class="md:col-span-1">
-          <div class="bg-white p-4 rounded shadow">
-            <h3 class="font-bold mb-2">Resumo</h3>
-            <p class="text-sm text-gray-600">Total de tarefas: {{ total }}</p>
-            <p class="text-sm text-gray-600">Concluídas: {{ completed }}</p>
+    <div>
+      <app-header></app-header>
+      
+      <app-task-form></app-task-form>
+
+      <main class="main-grid">
+        
+<section>
+          <h2>Para fazer</h2>
+          <div class="task-column">
+            <app-task-list status="todo"></app-task-list>
           </div>
-        </aside>
-      </div>
-    </main>
-  </div>
-  `
+        </section>
+
+        
+<section>
+          <h2>Em andamento</h2>
+          <div class="task-column">
+            <app-task-list status="doing"></app-task-list>
+          </div>
+        </section>
+
+        
+<section>
+          <h2>Concluídas</h2>
+          <div class="task-column">
+            <app-task-list status="done"></app-task-list>
+          </div>
+        </section>
+      </main>
+      
+      <aside class="main-grid mt-4 task-column">
+        <h2 class="text-xl font-semibold mb-2">Resumo</h2>
+        <p class="text-slate-700">Total de tarefas: —</p>
+        <p class="text-slate-700">Concluídas: —</p>
+      </aside>
+    </div>
+  `,
 })
 export class AppComponent {
-  // kept minimal; real derived values are shown in TaskList via service
-  total = '—';
-  completed = '—';
+  title = 'task-manager-angular';
 }

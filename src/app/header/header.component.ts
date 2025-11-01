@@ -1,18 +1,20 @@
+// src/app/header/header.component.ts
+
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
   standalone: true,
+  imports: [CommonModule],
   template: `
-  <header class="bg-white shadow">
-    <div class="container flex items-center justify-between py-4">
-      <h1 class="text-xl font-semibold">Gerenciador de Tarefas</h1>
-      <nav>
-        <button class="px-3 py-1 rounded hover:bg-gray-100">Home</button>
-        <button class="px-3 py-1 rounded hover:bg-gray-100">Sobre</button>
-      </nav>
-    </div>
-  </header>
-  `
+    <header class="mb-6 mt-4">
+      <h1 class="text-3xl font-bold text-slate-800">Gerenciador de Tarefas</h1>
+      <p class="text-slate-600 mt-1 text-sm">Organize suas tarefas em três categorias: Para Fazer, Em Andamento e Concluídas.</p>
+    </header>
+  `,
+
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+  // Você pode adicionar um título ou outras propriedades aqui, se necessário.
+}
