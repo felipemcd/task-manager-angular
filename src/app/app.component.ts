@@ -1,11 +1,11 @@
-
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // Componentes da Aplicação
 import { HeaderComponent } from './header/header.component';
 import { TaskFormComponent } from './task-form/task-form.component';
 import { TaskListComponent } from './task-list/task-list.component';
+import { TaskService } from './services/task.service';
 
 @Component({
   selector: 'app-root',
@@ -50,12 +50,18 @@ import { TaskListComponent } from './task-list/task-list.component';
       
       <aside class="main-grid mt-4 task-column">
         <h2 class="text-xl font-semibold mb-2">Resumo</h2>
-        <p class="text-slate-700">Total de tarefas: —</p>
-        <p class="text-slate-700">Concluídas: —</p>
+        <p class="text-slate-700">Total de tarefas: {{ totalTasks() }}</p>
+        <p class="text-slate-700">Concluídas: {{ doneTasks() }}</p>
       </aside>
     </div>
   `,
 })
 export class AppComponent {
   title = 'task-manager-angular';
+
+  constructor(private taskService: TaskService) {}
+
+  // Computed signals para derivar valores a partir do TaskService.tasks
+  totalTasks = computed(() => this.taskService.tasks().length);
+  doneTasks = computed(() => this.taskService.tasks().filter(t => t.status === 'done').length);
 }
