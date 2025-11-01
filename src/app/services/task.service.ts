@@ -1,7 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { Task } from '../models/task';
 
-// Helper para criar datas dinâmicas como no script.js original
 function addDaysISO(n: number): string {
   const d = new Date();
   d.setDate(d.getDate() + n);
@@ -15,7 +14,7 @@ const INITIAL_TASKS: Task[] = [
     description: 'Priorizar exercícios 3.1-3.5',
     priority: 'high',
     status: 'todo',
-    due: addDaysISO(2) // Data dinâmica
+    due: addDaysISO(2)
   },
   {
     id: '2',
@@ -23,7 +22,7 @@ const INITIAL_TASKS: Task[] = [
     description: 'Atenção a generics',
     priority: 'medium',
     status: 'doing',
-    due: addDaysISO(5) // Data dinâmica
+    due: addDaysISO(5) 
   },
   {
     id: '3',
@@ -31,7 +30,7 @@ const INITIAL_TASKS: Task[] = [
     description: '30 minutos',
     priority: 'low',
     status: 'done',
-    due: addDaysISO(10) // Data dinâmica
+    due: addDaysISO(10) 
   }
 ];
 
@@ -43,7 +42,6 @@ export class TaskService {
 
   constructor() { }
 
-  // Modificado para incluir 'due' (que já estava no Omit, mas agora garantimos)
   add(newTask: Omit<Task, 'id' | 'status'>) {
     const taskWithDefaults: Task = {
       ...newTask,
@@ -53,12 +51,10 @@ export class TaskService {
     this.tasks.update(currentTasks => [taskWithDefaults, ...currentTasks]);
   }
 
-  // NOVO: Método para edição (baseado no script.js)
   update(id: string, updatedTaskData: Partial<Omit<Task, 'id' | 'status'>>) {
     this.tasks.update(currentTasks =>
       currentTasks.map(task => {
         if (task.id === id) {
-          // Retorna a tarefa mesclada com os novos dados
           return { ...task, ...updatedTaskData };
         }
         return task;
@@ -77,7 +73,6 @@ export class TaskService {
     );
   }
 
-  // Este método é usado pelo checkbox no seu código atual.
   toggleStatus(id: string) {
     this.tasks.update(currentTasks =>
       currentTasks.map(task => {

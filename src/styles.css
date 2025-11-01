@@ -32,29 +32,28 @@ app-root > div {
 }
 
 section h2 {
-    font-size: 1.125rem; /* text-lg */
+    font-size: 1.125rem; 
     font-weight: 600;
-    color: #334155; /* text-slate-700 */
+    color: #334155;
     margin-bottom: 0.5rem;
-    border-bottom: 2px solid #e2e8f0; /* border-slate-200 */
+    border-bottom: 2px solid #e2e8f0; 
     padding-bottom: 0.5rem;
 }
 
 .task-column {
-    padding: 0.75rem; /* p-3 */
+    padding: 0.75rem; 
     min-height: 200px;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem; /* space-y-3 */
+    gap: 0.75rem; 
     background-color: white;
-    border-radius: 0.375rem; /* rounded */
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+    border-radius: 0.375rem; 
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
-/* Estilos de botões de ação (do seu styles.css antigo) */
 .task-actions {
   display: flex;
-  flex-wrap: wrap; /* Permite quebra de linha em telas menores */
+  flex-wrap: wrap; 
   gap: 0.75rem;
   margin-top: 0.75rem;
 }
@@ -68,7 +67,6 @@ section h2 {
   cursor: pointer;
 }
 
-/* Cores específicas dos botões */
 .task-actions button.bg-blue-600 { background-color: #2563eb; }
 .task-actions button.bg-yellow-600 { background-color: #f59e0b; }
 .task-actions button.bg-green-600 { background-color: #16a34a; }

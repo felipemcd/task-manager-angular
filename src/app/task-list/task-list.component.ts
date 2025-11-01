@@ -1,4 +1,4 @@
-import { Component, Input, computed, Output, EventEmitter } from '@angular/core'; 
+import { Component, Input, computed, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../services/task.service';
 import { Task } from '../models/task';
@@ -51,7 +51,7 @@ import { Task } from '../models/task';
 })
 export class TaskListComponent {
   @Input({ required: true }) status!: 'todo' | 'doing' | 'done';
-  @Output() startEdit = new EventEmitter<Task>(); 
+  @Output() startEdit = new EventEmitter<Task>();
 
   constructor(private taskService: TaskService) {}
 
@@ -59,7 +59,6 @@ export class TaskListComponent {
     return this.taskService.tasks().filter(task => task.status === this.status);
   });
 
-  // --- Funções de Ação ---
   updateStatus(id: string, newStatus: 'todo' | 'doing' | 'done'): void {
     this.taskService.updateStatus(id, newStatus);
   }
@@ -69,10 +68,8 @@ export class TaskListComponent {
   }
 
   edit(task: Task): void {
-    this.startEdit.emit(task); 
+    this.startEdit.emit(task);
   }
-
-  // --- Funções de Exibição (Helpers) ---
 
   levelLabel(level: 'low' | 'medium' | 'high'): string {
     if (level === 'high') return 'Alta';
@@ -86,25 +83,24 @@ export class TaskListComponent {
     return 'border-l-4 border-green-500';
   }
 
-  // Lógica de proximidade do script.js
   getProximityColor(dueISO?: string): string {
-    if (!dueISO) return 'bg-gray-300'; // Sem data
+    if (!dueISO) return 'bg-gray-300';
     const today = new Date();
-    today.setHours(0, 0, 0, 0); 
-    const due = new Date(dueISO + 'T00:00:00-03:00'); 
-    
+    today.setHours(0, 0, 0, 0);
+    const due = new Date(dueISO + 'T00:00:00-03:00');
+
     const diffTime = due.getTime() - today.getTime();
     const diff = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-    if (diff < 0) return 'bg-gray-500'; // Atrasada
-    if (diff <= 1) return 'bg-red-500'; // Hoje ou amanhã
+    if (diff < 0) return 'bg-gray-500';
+    if (diff <= 1) return 'bg-red-500';
     if (diff <= 3) return 'bg-orange-400';
     if (diff <= 7) return 'bg-yellow-400';
-    return 'bg-green-400'; // Mais de 7 dias
+    return 'bg-green-400';
   }
 
   getProximityTitle(dueISO?: string): string {
-     if (!dueISO) return 'Sem data definida';
-     return 'Proximidade da data de término';
+    if (!dueISO) return 'Sem data definida';
+    return 'Proximidade da data de término';
   }
 }

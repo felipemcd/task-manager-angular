@@ -1,12 +1,11 @@
-import { Component, computed, signal } from '@angular/core'; // Adiciona 'signal'
+import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-// Componentes da Aplicação
 import { HeaderComponent } from './header/header.component';
 import { TaskFormComponent } from './task-form/task-form.component';
 import { TaskListComponent } from './task-list/task-list.component';
 import { TaskService } from './services/task.service';
-import { Task } from './models/task'; // Importa o modelo Task
+import { Task } from './models/task'; 
 
 @Component({
   selector: 'app-root',
@@ -70,7 +69,6 @@ import { Task } from './models/task'; // Importa o modelo Task
 export class AppComponent {
   title = 'task-manager-angular';
 
-  // Signals para controlar o estado do modal e edição
   isFormOpen = signal(false);
   editingTask = signal<Task | null>(null);
 
@@ -79,9 +77,8 @@ export class AppComponent {
   totalTasks = computed(() => this.taskService.tasks().length);
   doneTasks = computed(() => this.taskService.tasks().filter(t => t.status === 'done').length);
 
-  // Métodos para controlar o modal
   openFormModal(task: Task | null) {
-    this.editingTask.set(task); // Define a tarefa a ser editada (ou null para nova)
+    this.editingTask.set(task); 
     this.isFormOpen.set(true);
   }
 

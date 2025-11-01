@@ -57,21 +57,18 @@ import { Task } from '../models/task';
   `
 })
 export class TaskFormComponent implements OnInit {
-  // Estado para os campos do formulário
   title = '';
   description = '';
   priority: 'low'|'medium'|'high' = 'low';
-  due = ''; // Novo campo
+  due = ''; 
   isEditing = false;
   editingTaskId: string | null = null;
 
-  // Inputs e Outputs para o modal
   @Input() taskToEdit: Task | null = null;
   @Output() close = new EventEmitter<void>();
 
   constructor(private taskService: TaskService) {}
 
-  // ngOnInit é chamado quando o componente é inicializado
   ngOnInit(): void {
     if (this.taskToEdit) {
       this.isEditing = true;
@@ -95,10 +92,8 @@ export class TaskFormComponent implements OnInit {
     };
 
     if (this.isEditing && this.editingTaskId) {
-      // Lógica de Edição
       this.taskService.update(this.editingTaskId, taskData);
     } else {
-      // Lógica de Adicionar
       this.taskService.add(taskData);
     }
 
@@ -112,6 +107,6 @@ export class TaskFormComponent implements OnInit {
     this.due = '';
     this.isEditing = false;
     this.editingTaskId = null;
-    this.close.emit(); // Emite o evento para fechar
+    this.close.emit(); 
   }
 }

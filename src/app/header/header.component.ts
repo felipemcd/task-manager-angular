@@ -6,7 +6,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-header',
   standalone: true,
   imports: [CommonModule],
-  // Template atualizado para bater com o index.html original
   template: `
     <header class="mb-6 mt-4">
       <h1 class="text-3xl font-bold text-slate-800">Gerenciador de Tarefas - Estudos</h1>
