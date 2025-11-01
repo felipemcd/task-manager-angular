@@ -1,27 +1,49 @@
-# TaskManagerAngular
+# 🚀 Gerenciador de Tarefas Angular (Migração e Refatoração)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.16.
+Este projeto representa a migração da aplicação estática `app-task-manager` (HTML/JS) para uma moderna Single Page Application (SPA) desenvolvida com **Angular**.
 
-## Development server
+O projeto foi construído para atender aos requisitos de uso das arquiteturas mais recentes do framework.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## ✨ Requisitos Arquiteturais Atendidos
 
-## Code scaffolding
+| Recurso Angular | Descrição | Status |
+| :--- | :--- | :--- |
+| **Componentes Standalone** | Utilização de componentes sem a necessidade de `NgModule`. | ✅ Implementado |
+| **Gerenciamento de Estado (Signals)** | Uso da API `signal()` para armazenar e reagir às mudanças de estado das tarefas. | ✅ Implementado |
+| **Serviço Centralizado** | Criação de um `TaskService` para encapsular a base de dados inicial. | ✅ Implementado |
+| **Injeção de Dependência (DI)** | O `TaskService` é injetado nos componentes (`TaskListComponent`) via construtor. | ✅ Implementado |
+| **Estilização** | Utilização de classes **Tailwind CSS** (simuladas via CSS puro para garantia de visualização em todos os ambientes). | ✅ Implementado |
+| **Estrutura** | Componentes separados para `Header`, `Form` e `Lista`. | ✅ Implementado |
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 📦 Estrutura do Projeto
 
-## Build
+O projeto é modularizado nos seguintes componentes (standalone):
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+* `src/app/header/header.component.ts`: Exibe o título e a descrição.
+* `src/app/task-form/task-form.component.ts`: Contém o formulário para adicionar novas tarefas.
+* `src/app/task-list/task-list.component.ts`: Exibe as tarefas filtradas nas colunas (**Para fazer**, **Em andamento**, **Concluídas**).
+* `src/app/services/task.service.ts`: Serviço que contém o Signal para o estado das tarefas e a lógica de atualização.
 
-## Running unit tests
+## ⚙️ Funcionalidades e Interações
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+O gerenciador de tarefas permite:
 
-## Running end-to-end tests
+1.  **Criação de Tarefas:** Adiciona uma nova tarefa com título, descrição e nível de prioridade.
+2.  **Transição de Status (Botões):**
+    * Tarefas em **'Para Fazer'** possuem o botão **"Em Andamento"**.
+    * Tarefas em **'Em Andamento'** possuem o botão **"Voltar"** para 'Para Fazer'.
+3.  **Conclusão (Checkbox):** O checkbox move a tarefa para 'Concluídas'.
+4.  **Remoção:** O botão "Excluir" remove a tarefa do Signal.
+5.  **Visual Organizado:** O CSS aplicado replica o layout de 3 colunas da aplicação estática original.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## 💻 Como Executar o Projeto Localmente
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+1.  **Clone o Repositório:**
+    ```bash
+    git clone [https://github.com/SEU_USUARIO/task-manager-angular.git](https://github.com/SEU_USUARIO/task-manager-angular.git)
+    cd task-manager-angular
+    ```
+2.  **Instale as Dependências:**
+    ```bash
+    npm install
+    ```
